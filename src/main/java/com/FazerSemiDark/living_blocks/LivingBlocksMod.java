@@ -1,5 +1,9 @@
 package com.FazerSemiDark.living_blocks;
 
+import net.minecraft.world.entity.TamableAnimal;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -32,17 +36,28 @@ public class LivingBlocksMod {
         // Register the Deferred Register to the mod event bus so tabs get registered
         ModCreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
 
-        // ModEntityTypes.ENTITY_TYPES.register(modEventBus);
+        ModEntityTypes.ENTITY_TYPES.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (LivingBlocksMod) to respond directly to events.
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
-        // NeoForge.EVENT_BUS.register(this);
+        //NeoForge.EVENT_BUS.register(this);
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+
+        modEventBus.addListener(this::registerAttributes);
     }
 
+
+    @SubscribeEvent
+    public void registerAttributes(EntityAttributeCreationEvent event) {
+        event.put(
+                ModEntityTypes.LIVING_BLOCK.get(),
+                TamableAnimal.createMobAttributes().build()
+        );
+    }
+    
     private void commonSetup(FMLCommonSetupEvent event) {
         // Some common setup code
         LOGGER.info("HELLO FROM COMMON SETUP");
