@@ -9,5 +9,9 @@
   "examplemod.configuration.items": "Item List",
   "examplemod.configuration.logDirtBlock": "Log Dirt Block",
   "examplemod.configuration.magicNumberIntroduction": "Magic Number Text",
-  "examplemod.configuration.magicNumber": "Magic Number"
+  "examplemod.configuration.magicNumber": "Magic Number",
+
+  "itemGroup.living_blocks_tab": "Living Blocks ",
+  "item.living_blocks.miraculous_butter": "Miraculous Butter"
 }
+
